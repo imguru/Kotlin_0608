@@ -2,9 +2,19 @@ package com.lge.ex1;
 
 import java.util.Collections;
 
+class Point {
+    protected int x;
+    protected int y;
+}
+
 public class Sample {
     static void foo() {}
 
+    public static void main(String[] args) {
+        Point point = new Point();
+        point.x = 42;    // 같은 패키지에서 protected에 접근 가능하다.
+    }
+    /*
     public static void main(String[] args) {
         System.out.println("Hello, Java");
 
@@ -29,4 +39,5 @@ public class Sample {
         // Arrays.sort(arr);
 
     }
+     */
 }
