@@ -9,8 +9,19 @@ package ex9
 //   => 객체를 복제하는 기능
 // 5. 구조 분해 선언 문법
 
+// 주의 사항
+// - 프로퍼티가 한개 이상 존재해야 합니다.
+// - 주 생성자를 통해 전달되는 인자는 반드시 프로퍼티로 초기화되어야 한다.
+data class Point(val x: Int = 20, var y: Int)
+
 // Kotlin 에서는 clone을 제공하지 않습니다.
-data class User(val name: String, val age: Int)
+data class User(val name: String, val age: Int) {
+
+    // 내 것을 정의하면 됩니다.
+    override fun toString(): String {
+        return "User{name=$name,age=$age}!"
+    }
+}
 
 class Person(val name: String, val age: Int) {
     operator fun component1(): String {
