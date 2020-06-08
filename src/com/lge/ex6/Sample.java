@@ -62,8 +62,6 @@ class Button implements View {
 
 public class Sample {
     public static void main(String[] args) throws Exception {
-
-
         Button button = new Button(30, 40);
         button.foo();
 

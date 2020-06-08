@@ -50,12 +50,16 @@ fun main() {
     button.x = 30
     button.y = 40
 
-    val fis = FileInputStream("button2.dat")
-    val ois = ObjectInputStream(fis)
-    val s = ois.readObject() as State
+    try {
+        val fis = FileInputStream("button3.dat")
+        val ois = ObjectInputStream(fis)
+        val s = ois.readObject() as State
 
-    button.restoreState(s)
-    println(button)
+        button.restoreState(s)
+        println(button)
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
 }
 
 
