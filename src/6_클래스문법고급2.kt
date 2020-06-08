@@ -29,10 +29,17 @@ class Button(var x: Int, var y: Int) : View {
     override fun toString(): String {
         return "Button(x=$x, y=$y)"
     }
+
+    @Throws(IOException::class)
+    fun foo() {
+    }
 }
 
+// Kotlin - Checked Exception이 존재하지 않습니다.
+//  => 예외 처리가 강제되지 않는다.
 fun main() {
     val button = Button(10, 20)
+    button.foo()
 
     val fos = FileOutputStream("button2.dat")
     val oos = ObjectOutputStream(fos)

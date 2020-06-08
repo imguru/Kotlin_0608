@@ -54,12 +54,18 @@ class Button implements View {
         this.x = s.x;
         this.y = s.y;
     }
+
+    public void foo() throws IOException {
+    }
 }
 
 
 public class Sample {
     public static void main(String[] args) throws Exception {
+
+
         Button button = new Button(30, 40);
+        button.foo();
 
         FileInputStream fis = new FileInputStream("button.dat");
         ObjectInputStream ois = new ObjectInputStream(fis);
