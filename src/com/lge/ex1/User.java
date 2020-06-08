@@ -2,6 +2,8 @@ package com.lge.ex1;
 
 import java.util.Objects;
 
+// Project Lombok - @Data
+//            : toString / equals / hashCode
 public class User {
     private String name;
     private int age;

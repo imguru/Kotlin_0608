@@ -36,6 +36,7 @@ class User constructor(
 )
 */
 
+/*
 class User(
     private var name: String,
     private var age: Int
@@ -68,7 +69,15 @@ class User(
         return Objects.hash(name, age)
     }
 }
+*/
 
+// data - equals / hashCode
+data class User(
+    private var name: String,
+    private var age: Int
+)
+
+/*
 fun main() {
     // T: null이 불가능한 타입
     // T?: null 가능성이 있는 타입
@@ -81,6 +90,8 @@ fun main() {
     // Kotlin - new 키워드가 사라졌습니다.
     var user1 = User("Tom", 42)
     var user2 = User("Tom", 42)
+
+    println(user1)
 
     // var user2 = user1
     if (user1 === user2) {
@@ -99,8 +110,54 @@ fun main() {
     // 2) 객체 동등성 - 같은 값을 갖는가?
     //   Java: .equals
     //   Kotlin: ==
+}
+*/
 
+class Car {
+    /*
+    fun go() {
+        println("go")
+    }
 
+    fun go(speed: Int) {
+        // println("go - " + speed)
+        // Template String / String Interpolation
+        println("go - $speed")
+    }
+
+    fun go(speed: Int, color: Int, address: String) {
+        println("go - ${speed}는 ${color}다")
+    }
+    */
+
+    // 파라미터 기본 값을 지원한다. - 뒤에서부터 지정하는 것이 좋다.
+    fun go(speed: Int = 100, color: Int = 0xf00, address: String = "Suwon") {
+        println("go - ${speed}는 ${color}다")
+    }
+}
+
+fun main() {
+    val car = Car()
+
+    val a = 100
+    val b = 0xf00
+    val c = "Suwon"
+
+    // car.go(color = 0, address = "Suwon")
+
+//    car.go()
+//    car.go(100)
+//    car.go(100, 0xf00, "Suwon")
+
+    // 파라미터 지정 호출 - 가독성!
+    car.go(a, b, c)
+    car.go(speed = a, color = b, address = c)
+
+    // 순서가 바뀌어도 허용된다. - 권장 X
+    car.go(color = b, address = c, speed = a)
+
+    // 혼용해서 사용이 불가능합니다. - 지원 예정(1.4)
+    // car.go(speed = a, b, c)
 }
 
 
