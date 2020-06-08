@@ -3,16 +3,40 @@ package com.lge.ex1;
 import java.util.Collections;
 
 class Point {
-    protected int x;
-    protected int y;
+//    public int x;
+    public int y;
+
+    Point(int x, int y) {
+//        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return 0;
+//        return x;
+    }
+
+    public void setX(int x) {
+//        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 }
 
 public class Sample {
-    static void foo() {}
+    static void foo() {
+    }
 
     public static void main(String[] args) {
-        Point point = new Point();
-        point.x = 42;    // 같은 패키지에서 protected에 접근 가능하다.
+        Point point = new Point(10, 20);
+        // point.x = 42;    // 같은 패키지에서 protected에 접근 가능하다.
+        point.setX(10);
     }
     /*
     public static void main(String[] args) {
