@@ -58,7 +58,6 @@ class User {
 */
 
 class User(var firstName: String, var lastName: String) {
-
     // 프로퍼티 vs 메소드
     // 1) 복잡한 코드는 메소드가 좋다.
     // 2) 시간이 오래 걸리는 작업은 메소드가 좋다.
