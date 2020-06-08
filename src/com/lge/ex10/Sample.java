@@ -2,6 +2,8 @@ package com.lge.ex10;
 
 // Version 3 - IODH
 //  => Initialization on Demand Holder Pattern
+// com.lge.ex10.Cursor
+/*
 class Cursor {
     // 중첩 클래스의 정적 필드는 처음 접근되는 시점에 생성된다.
     // static final은 생성 시점에 대한 스레드 안전성을 언어가 보장한다.
@@ -16,7 +18,7 @@ class Cursor {
         return Singleton.INSTANCE;
     }
 }
-
+*/
 
 // Version 2 - Lazy Initialization
 //   문제점: getInstance가 스레드 안전하지 않다.
@@ -70,8 +72,11 @@ class Cursor {
 */
 
 
+import ex10.Cursor;
+
 public class Sample {
     public static void main(String[] args) {
-
+        System.out.println("main");
+        Cursor.INSTANCE.move();
     }
 }
