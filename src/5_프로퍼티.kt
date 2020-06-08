@@ -58,6 +58,16 @@ class User {
 */
 
 class User(var firstName: String, var lastName: String) {
+
+    // 프로퍼티 vs 메소드
+    // 1) 복잡한 코드는 메소드가 좋다.
+    // 2) 시간이 오래 걸리는 작업은 메소드가 좋다.
+    // 3) Getter에서 객체 내부의 값을 변경하면 안된다.
+    // 4) 다른 타입으로 변경하는 작업은 메소드를 사용해야 한다.
+    //    toString() -> String
+    //    toInt()    -> Int
+    // 5) 객체를 복제하는 작업은 메소드를 사용해야 한다.
+
     // Backing field가 없는 프로퍼티
     //  : field 키워드를 사용할 수 없습니다.
     //    초기화할 수 없습니다.
