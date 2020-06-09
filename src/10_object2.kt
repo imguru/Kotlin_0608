@@ -40,10 +40,68 @@ class User private constructor(val nickname: String) {
     }
 }
 
+/*
 fun main() {
     val user1 = User.newFacebookUser(123123)
     val user2 = User.newSubscribingUser("chansik.yun@gmail.com")
 }
+*/
+
+// 동반 객체 활용 방법
+
+// Map<String, Any>: JSON(Javascript Object Notation)
+// Person(name="Tom", age=42)
+// ->
+// {
+//   "name": "Tom",
+//   "age": 42
+// }
+
+interface MapFactory<T> {
+    fun fromMap(map: Map<String, Any>): T
+}
+
+// 클래스 타입이 인터페이스를 만족할 수 있다.
+data class Person(val name: String) {
+    // 인터페이스를 구현하거나 상속을 하는 것이 가능합니다.
+    companion object : MapFactory<Person> {
+        override fun fromMap(map: Map<String, Any>): Person {
+            val name = map["name"] as String
+            return Person(name)
+        }
+    }
+}
+
+// 제네릭 함수는 인자를 통해서 T를 추론 가능하다.
+// => 제네릭의 복잡도를 낮출 수 있다.
+fun <T> loadFromMap(map: Map<String, Any>, factory: MapFactory<T>): T {
+    return factory.fromMap(map)
+}
+
+fun main() {
+    val map: Map<String, Any> = mapOf(
+        "name" to "Tom"  // Pair<String, Any>("name", "Tom")
+    )
+
+    //                  gson.fromJson(json, Person::class.java)
+    val person = loadFromMap(map, Person)
+    println(person)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
