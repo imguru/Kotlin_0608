@@ -39,6 +39,7 @@ fun String.lastChar(): Char = this[length - 1]
 
 //  get(index: Int) -> []       // text.get(text.length - 1)
 
+/*
 fun main() {
     val user = User()
     user.foo()          // foo(user)
@@ -49,6 +50,97 @@ fun main() {
     val lc = text.lastChar()
     println(lc)
 }
+*/
+
+/*
+class Button {
+    // var onClick: (() -> Unit)? = null
+    var dialog: Dialog? = null
+    var onClick: ((Dialog) -> Unit)? = null
+
+    fun click() {
+        // onClick?()
+        // onClick?.invoke()
+        // 함수의 참조가 Nullable 타입일 때, invoke를 통해 호출해야 합니다.
+        val dialog = dialog
+        if (dialog != null)
+            onClick?.invoke(dialog)
+    }
+}
+
+class Dialog {
+    // () -> Unit - X
+    // (Dialog) -> Unit
+
+    // fun close(Dialog this)
+    fun close() {
+        println("Dialog close")
+    }
+}
+
+fun foo() {
+    println("foo")
+}
+
+fun main() {
+    val button = Button()
+    // button.onClick = ::foo
+
+    button.dialog = Dialog()
+    button.onClick = Dialog::close
+
+    button.click()
+}
+*/
+
+
+class Button {
+    var onClick: (() -> Unit)? = null
+
+    fun click() {
+        onClick?.invoke()
+    }
+}
+
+class Dialog {
+    fun close() {
+        println("Dialog close")
+    }
+}
+
+fun foo() {
+    println("foo")
+}
+
+fun main() {
+    val button = Button()
+    button.onClick = ::foo
+    button.click()
+
+    val fn: (Dialog) -> Unit = Dialog::close
+    // 위의 메소드 참조가 어떤 객체를 대상으로 호출할지 결정할 수 있다면
+    // 객체를 전달할 필요가 없다.
+
+    val dialog = Dialog()
+    val fn2: () -> Unit = dialog::close  // bound 참조
+
+    button.onClick = dialog::close
+    button.click()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
