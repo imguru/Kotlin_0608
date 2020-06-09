@@ -67,13 +67,6 @@ fun main() {
     result = list.filter {
         it % 2 == 0
     }
-
-
-
-
-
-
-
 }
 
 

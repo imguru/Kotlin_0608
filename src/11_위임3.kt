@@ -2,6 +2,7 @@ package ex11_3
 
 import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
+import kotlin.reflect.KProperty
 
 
 data class Point(val x: Int, val y: Int) {
@@ -21,9 +22,9 @@ open class AppCompatActivity {
 
 class MainActivity : AppCompatActivity() {
     // val button = findViewById(R.id.button)
-    // val button by lazy {
-    //   findViewById(R.id.button)
-    // }
+    val button by lazy {
+//       findViewById(R.id.button)
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -141,11 +142,16 @@ fun main() {
 
 // 4. vetoable: validation 조건에 부합되지 않으면, 값이 변경되지 않도록 한다.
 class Address {
+    // (property: KProperty<*>, oldValue: T, newValue: T) -> Boolean
+
+    private fun onChanged(property: KProperty<*>, oldValue: String, newValue: String) = isValidAddressName(newValue)
+
     // name은 반드시 5글자 이상이어야 한다.
-    var name: String by Delegates.vetoable("Suwon") { _, old, new ->
-        // Validation 조건 - true or false가 결과가 되어야 한다.
-        isValidAddressName(new)
-    }
+    var name by Delegates.vetoable("Suwon", this::onChanged)
+//    var name: String by Delegates.vetoable("Suwon") { _, old, new ->
+//        // Validation 조건 - true or false가 결과가 되어야 한다.
+//        isValidAddressName(new)
+//    }
 
     private fun isValidAddressName(name: String): Boolean {
         return name.length >= 5
