@@ -37,7 +37,6 @@ class User(name: String) {
             println("ValueChanged: $old -> $new")
         }
     })
-
 }
 
 fun main() {
