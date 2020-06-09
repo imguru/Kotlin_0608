@@ -28,7 +28,23 @@ fun sub(a: Int, b: Int): Int = a - b  // (Int, Int) -> Int
 fun say(message: String) = println("Hello, $message") // (String) -> Unit
 fun test(a: Int, b: Char): Double = 3.14  // (Int, Char) -> Double
 
+
+fun printArea(width: Int, height: Int) {
+    // 함수 안에서 함수를 만든 것이 가능합니다. - 지역 함수
+    // 1) 전역 공간에 함수를 만드는 것은, 해당 이름은 한번만 사용 가능하다.
+    // 2) 클로저를 사용 할 수 있습니다.
+
+    // fun calcArea(width: Int, height: Int) = width * height
+    fun calcArea() = width * height
+
+    // val area = calcArea(width, height)
+    val area = calcArea()
+    println("Area: $area")
+}
+
 fun main() {
+    printArea(100, 30)
+
     // 함수를 참조하는 변수 - 함수 포인터 개념과 동일합니다.
     // :: <- 전역 이름 공간
     // KFunctionN<Arg1, Arg2, ReturnType>
@@ -38,7 +54,8 @@ fun main() {
     var fp: (Int, Int) -> Int = ::add
     fp = ::sub
 
-    var result = fp(10, 20)
+    var result = fp.invoke(10, 20)  // JVM - KFunction.invoke(T a, T b)
+                                    // fp.invoke(10, 20)
     println(result)
 
     fp = ::add
