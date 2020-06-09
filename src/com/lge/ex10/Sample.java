@@ -114,8 +114,38 @@ class User {
 
 import ex10_2.User;
 
+interface OnClickListener {
+    void onClick();
+}
+
+class Button {
+    public void setOnClickListener(OnClickListener listener) {
+
+    }
+}
+
+class MyOnClickListener implements OnClickListener {
+    @Override
+    public void onClick() {
+        // ...
+    }
+}
+
+
 public class Sample {
     public static void main(String[] args) {
+        Button button = new Button();
+        button.setOnClickListener(new MyOnClickListener());
+
+        // 익명 객체
+        button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick() {
+
+            }
+        });
+
+
         // LocalDateTime, LocalDate
 
 //        User user1 = new User("chansik.yun@gmail.com");
