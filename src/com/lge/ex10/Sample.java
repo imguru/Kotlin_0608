@@ -72,6 +72,7 @@ class Cursor {
 */
 
 
+/*
 import ex10.Cursor;
 
 public class Sample {
@@ -80,3 +81,90 @@ public class Sample {
         Cursor.INSTANCE.move();
     }
 }
+*/
+
+// 생성자를 통해 객체를 직접 생성하는 것은 좋지 않다. => '정적 팩토리 메소드'
+// 1) 생성자의 이름은 항상 동일하다.
+//    - 어떤 형태로 객체를 생성하는지 알 수 없다.
+// 2) 생성자의 오버로딩은 한계가 있다.
+// 3) 객체 생성의 정책을 변경할 수 없다.
+
+class User {
+    private String nickname;
+
+    private User(String nickname) {
+        this.nickname = nickname;
+    }
+
+    // 정적 팩토리 메소드
+    static User newSubscribingUser(String email) {
+        return new User(email.split("@")[0]);
+    }
+
+    static User newFacebookUser(int facebookAccountId) {
+        return new User(getFacebookName(facebookAccountId));
+    }
+
+    static String getFacebookName(int facebookAccountId) {
+        return "" + facebookAccountId;
+    }
+}
+
+public class Sample {
+    public static void main(String[] args) {
+//        User user1 = new User("chansik.yun@gmail.com");
+        User user1 = User.newSubscribingUser("chansik.yun@gmail.com");
+//        User user2 = new User(123123123);
+        User user2 = User.newFacebookUser(123123123);
+    }
+}
+
+/*
+class User {
+    private String nickname;
+
+    User(String email) {
+        nickname = email.split("@")[0];
+    }
+
+    User(int facebookAccountId) {
+        nickname = getFacebookName(facebookAccountId)
+    }
+
+    static String getFacebookName(int facebookAccountId) {
+        return "" + facebookAccountId;
+    }
+}
+
+public class Sample {
+    public static void main(String[] args) {
+        User user1 = new User("chansik.yun@gmail.com");
+        User user2 = new User(123123123);
+    }
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
