@@ -16,18 +16,18 @@ public class Person {
         isMale = male;
     }
 
+    // Field X  => Backing Field가 없는 프로퍼티
     public String getFullName() {
         return "";
     }
-
     public void setFullName(String s) {
 
     }
 
+    // Field O - name => 프로퍼티
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }

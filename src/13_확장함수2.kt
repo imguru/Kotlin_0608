@@ -1,5 +1,7 @@
 package ex13_2
 
+// Java           -> Kotlin
+// void foo()     -> fun foo(): Unit
 
 fun lastChar1(text: String): Char = text[text.length - 1]  // (String) -> Char
 
@@ -22,14 +24,27 @@ var StringBuilder.lastChar: Char
         this[length - 1] = value
     }
 
-
+/*
 fun main() {
     val result = lastChar1("hello")
-
     val result2 = "hello".lastChar2()     // 확장 함수
-
     val result3 = "hello".lastChar        // 확장 프로퍼티
     val sb = StringBuilder("hello")
     sb.lastChar = 'x'
     println(sb)
 }
+*/
+
+fun main() {
+    val fullname = "chansik.yun"
+    val name = fullname.split(".")[0]
+    println(name)
+}
+
+
+
+
+
+
+
+
