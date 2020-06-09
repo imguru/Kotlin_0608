@@ -26,4 +26,5 @@ fun main() {
     val map = mapOf(
         pair1, pair2, pair3, pair4
     )
+    println(map)
 }
