@@ -53,12 +53,14 @@ fun main() {
 // int compare(T o1, T o2);
 // class CaseInsensitiveFileComparator : Comparator<File> {
 // 아래의 정책이 여러 부분에서 공유될 수 있다.
+
+// 1) 상속을 하거나, 인터페이스를 구현하는 것이 가능합니다.
 object CaseInsensitiveFileComparator : Comparator<File> {
     override fun compare(o1: File, o2: File): Int {
         return o1.path.compareTo(o2.path, ignoreCase = true)
     }
 }
-
+/*
 fun main() {
     val files = listOf(File("/Z"), File("/a"), File("/C"))
 
@@ -70,6 +72,32 @@ fun main() {
     val result = files.sortedWith(CaseInsensitiveFileComparator)
     println(result)
 }
+*/
+
+// 2) 중첩 객체로 만드는 것도 가능합니다.
+data class Person(val name: String, val age: Int) {
+    object NameComparator : Comparator<Person> {
+        override fun compare(o1: Person, o2: Person): Int {
+            return o1.name.compareTo(o2.name)
+        }
+    }
+
+    object AgeComparator : Comparator<Person> {
+        override fun compare(o1: Person, o2: Person): Int {
+            return o1.age.compareTo(o2.age)
+        }
+    }
+}
+
+fun main() {
+    val people = listOf(Person("Tom", 30), Person("Bob", 12))
+
+    // val result = people.sortedWith(Person.NameComparator())
+    val result = people.sortedWith(Person.AgeComparator)
+    println(result)
+}
+
+
 
 
 
