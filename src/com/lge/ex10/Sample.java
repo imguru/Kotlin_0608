@@ -89,6 +89,7 @@ public class Sample {
 // 2) 생성자의 오버로딩은 한계가 있다.
 // 3) 객체 생성의 정책을 변경할 수 없다.
 
+/*
 class User {
     private String nickname;
 
@@ -109,15 +110,18 @@ class User {
         return "" + facebookAccountId;
     }
 }
+*/
+
+import ex10_2.User;
 
 public class Sample {
     public static void main(String[] args) {
         // LocalDateTime, LocalDate
 
 //        User user1 = new User("chansik.yun@gmail.com");
-        User user1 = User.newSubscribingUser("chansik.yun@gmail.com");
+        User user1 = User.Companion.newSubscribingUser("chansik.yun@gmail.com");
 //        User user2 = new User(123123123);
-        User user2 = User.newFacebookUser(123123123);
+        User user2 = User.Companion.newFacebookUser(123123123);
     }
 }
 
