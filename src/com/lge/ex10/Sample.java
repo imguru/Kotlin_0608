@@ -97,21 +97,23 @@ class User {
     }
 
     // 정적 팩토리 메소드
-    static User newSubscribingUser(String email) {
+    public static User newSubscribingUser(String email) {
         return new User(email.split("@")[0]);
     }
 
-    static User newFacebookUser(int facebookAccountId) {
+    public static User newFacebookUser(int facebookAccountId) {
         return new User(getFacebookName(facebookAccountId));
     }
 
-    static String getFacebookName(int facebookAccountId) {
+    private static String getFacebookName(int facebookAccountId) {
         return "" + facebookAccountId;
     }
 }
 
 public class Sample {
     public static void main(String[] args) {
+        // LocalDateTime, LocalDate
+
 //        User user1 = new User("chansik.yun@gmail.com");
         User user1 = User.newSubscribingUser("chansik.yun@gmail.com");
 //        User user2 = new User(123123123);
