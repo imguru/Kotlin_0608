@@ -137,11 +137,14 @@ public class Sample {
         Button button = new Button();
         button.setOnClickListener(new MyOnClickListener());
 
+        int a = 10;
         // 익명 객체
+        //  장점: 외부 변수를 암묵적으로 캡쳐할 수 있다. - 클로져(Closure)
+        // => Java 8 이전에는 클로져 변수는 반드시 final 이어야 한다.
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick() {
-
+                System.out.println(a);
             }
         });
 
