@@ -1,6 +1,8 @@
 // 21_메모이제이션(캐시)
 package ex21
 
+import java.util.*
+
 /*
 fun fib(k: Int): Long {
     if (k == 0)
@@ -43,7 +45,8 @@ fun fib(k: Int): Long = when (k) {
 }
 */
 // getOrPut: 메모이제이션을 선언적 형태의 코드로 구현 가능하다.
-val cache = mutableMapOf<Int, Long>()
+// val cache = mutableMapOf<Int, Long>()
+val cache = WeakHashMap<Int, Long>()
 fun fib(k: Int): Long = cache.getOrPut(k) {
     when (k) {
         0, 1 -> 1
@@ -51,8 +54,25 @@ fun fib(k: Int): Long = cache.getOrPut(k) {
     }
 }
 
+// Cache: Map을 통해서 구현을 많이 합니다.
+//        일반 Map을 사용하면 주의해야할 것이 있습니다.
+//        -> 메모리가 부족할 때까지 무한정 늘어날 수 있습니다.
+// WeakHashMap: 약한 참조로 구성된 캐시
+//              메모리가 부족할 경우, 자동으로 처리됩니다.
+
+// Reference
+//   Strong Ref: GC가 일어나도 수거되지 않는다.
+//   Soft Ref: out of memory에 근접하면 수거된다.
+//   Weak Ref: GC가 일어나면 수거된다.
+
+
 fun main() {
     println(fib(10))
     println(fib(30))
     println(fib(100))
 }
+
+
+
+
+
