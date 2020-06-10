@@ -4,6 +4,7 @@ package ex19
 
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.withLock
 
 /*
 class IncThread : Thread() {
@@ -26,6 +27,7 @@ class IncThread : Thread() {
 // 호출되지 않는다. 바이트 코드로 치환된다.
 // Kotlin's inline
 //  1) 함수가 함수를 인자로 받을 때, 성능의 저하를 막기 위해 사용 가능하다.
+
 inline fun <T> withLock(lock: Lock, action: () -> T): T {
     lock.lock()
     try {
@@ -47,10 +49,15 @@ class IncThread(private val lock: Lock) : Thread() {
         // Range: 1..1000000
         for (e in 1..1000000) {
 
-            withLock(lock) {
+            lock.withLock {
                 n++
             }
 
+            /*
+            withLock(lock) {
+                n++
+            }
+            */
         }
     }
 
