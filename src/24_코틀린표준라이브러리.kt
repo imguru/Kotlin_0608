@@ -48,6 +48,9 @@ class Button : Clickable {
 
 // 3. 코틀린은 '컬렉션을 다루는 많은 함수'를 제공합니다.
 //  => Sequence API
+//  => Java는 위의 기능을 Stream API 라는 이름으로 제공합니다. - Java 8
+//   ; 안드로이드에서 자바 8에서 추가된 라이브러리를 온전하게 이용하기 위해서는 minimum SDK(23) 버전 이상 되어야 합니다.
+
 
 // 1. map(transform): 변환
 //  : 각 원소에 동일한 연산을 수행해서 나온 결과로 새로운 컬렉션을 만드는 함수
@@ -113,6 +116,7 @@ fun main() {
 */
 
 // 4. groupBy
+/*
 fun main() {
     val list = listOf(
         User("Tom1", 10),
@@ -151,6 +155,44 @@ fun main() {
 
     println(result)
 }
+*/
+
+// 5. 데이터를 추출하는 연산
+//  - take / takeLast: 원하는 요소를 추출
+//  - drop / dropLast: 원하지 않는 요소를 제거
+
+//  - first / firstOrNull
+//  - last / lastOrNull
+
+// 6. distinct: 중복을 제거한다.
+fun main() {
+    val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    list.map {
+        it % 5
+    }.distinct().forEach {
+        println(it)
+    }
+
+
+    // val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    // val list = emptyList<Int>()
+    // val e = list[0] // Out of Index: list가 비어있을 경우 - IndexOutOfBoundsException
+
+    // val e = list.firstOrNull()
+
+//    list.takeLast(5).forEach {
+//        println(it)
+//    }
+
+    list.dropWhile {
+        it < 5
+    }.forEach {
+        // println(it)
+    }
+
+}
+
+
 
 
 
