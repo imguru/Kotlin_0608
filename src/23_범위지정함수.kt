@@ -1,5 +1,7 @@
 package ex23
 
+import java.io.DataOutputStream
+import java.io.FileOutputStream
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
@@ -83,7 +85,7 @@ inline fun <T, R> with(receiver: T, block: T.() -> R): R {
     return receiver.block()
 }
 */
-
+/*
 fun main() {
     val viewHolder = ViewHolder(View(TextView(), Button()))
 
@@ -96,9 +98,46 @@ fun main() {
         textView.text = "TextView"
     }
 }
+*/
 
 // 4. use - Try with Resources
+class Resource : AutoCloseable {
+    override fun close() {
+        println("Resource closed")
+    }
 
+    fun foo() {
+        println("foo")
+    }
+}
+
+fun main() {
+    /*
+    val fos = FileOutputStream("a.txt")
+    fos.use {
+        val dos = DataOutputStream(fos)
+        dos.use {
+            dos.writeUTF("Hello")
+        }
+    }
+    */
+
+    FileOutputStream("a.txt").use { fos ->
+        DataOutputStream(fos).use { dos ->
+            dos.writeUTF("Hello")
+        }
+    }
+}
+
+/*
+fun main() {
+    val resource = Resource()
+    // Try with Resources = Kotlin's use
+    resource.use {
+        resource.foo()
+    }
+}
+*/
 
 
 
