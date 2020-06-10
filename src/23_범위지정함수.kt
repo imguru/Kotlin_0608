@@ -1,5 +1,6 @@
 package ex23
 
+import java.io.Closeable
 import java.io.DataOutputStream
 import java.io.FileOutputStream
 import kotlin.contracts.InvocationKind
@@ -127,7 +128,34 @@ fun main() {
             dos.writeUTF("Hello")
         }
     }
+
+    val fos = FileOutputStream("a.txt")
+    val dos = DataOutputStream(fos)
+    arrayOf(fos, dos).use {
+    }
 }
+
+private inline fun <T : Closeable?> Array<T>.use(block: () -> Unit) {
+    var exception: Throwable? = null
+    try {
+        return block()
+    } catch (e: Throwable) {
+        exception = e
+        throw e
+    } finally {
+        when {
+            exception == null -> forEach { it?.close() }
+            else -> forEach {
+                try {
+                    it?.close()
+                } catch (closeException: Throwable) {
+                    exception.addSuppressed(closeException)
+                }
+            }
+        }
+    }
+}
+
 
 /*
 fun main() {
