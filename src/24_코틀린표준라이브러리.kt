@@ -70,22 +70,87 @@ fun main() {
     println(result2)
 }
 */
-class User(val name: String, val age: Int)
+data class User(val name: String, val age: Int)
 
-// mapNotNull
+// 2. mapNotNull
 //  : 변환의 결과가 null인 것을 filter할 수 있고, 결과타입도 Nullable이 아닙니다.
+//    filterNotNull
+//  : Null이 아닌 것으로 새로운 컬렉션을 생성해준다.
+/*
 fun main() {
     val users = listOf(User("Tom", 19), User("Bob", 20))
-    val result = users.mapNotNull { user ->
+    val result = users.map { user ->
         if (user.age < 20)
             null
         else
             "OK"
-    }
+    }.filterNotNull()
 }
+*/
 
+// 3. flatMap
+// [ 1, 2, 3 ]
+//     =>
+//              [
+//   1 ->      [ 1 ]
+//   2 ->      [ 1, 2 ]
+//   3 ->      [ 1, 2, 3 ]
+//              ]
 
+// map     =>  [[1], [1, 2], [1, 2, 3]]
+// flatMap =>  [ 1, 1, 2, 1, 2, 3 ]
+/*
+fun main() {
+    val list = listOf(1, 2, 3)
+    val result = list.flatMap { n ->
+        val r = mutableListOf<Int>()
+        for (e in 1..n)
+            r.add(e)
+        r.toList()
+    }
+    println(result)
+}
+*/
 
+// 4. groupBy
+fun main() {
+    val list = listOf(
+        User("Tom1", 10),
+        User("Tom2", 20),
+        User("Tom3", 12),
+        User("Tom4", 14),
+        User("Tom5", 16),
+        User("Tom6", 32),
+        User("Tom7", 40),
+        User("Tom8", 60)
+    )
+    // 10대 ~ 60대까지 구분하고 싶다.
+    // 10대 =>  [ ]
+    // 20대 =>  [ ]
+    // : Map<String, List<User>>
+
+//    val result = list.groupBy { e ->
+//        if (e.age in 10..19)
+//            "10대"
+//        else if (e.age in 20..29)
+//            "20대"
+//        else if (e.age in 30..39)
+//            "30대"
+//        else
+//            "나이듬"
+//    }
+
+    val result = list.groupBy { e ->
+        when (e.age) {
+            in 10..19 -> "10대"
+            in 20..29 -> "20대"
+            in 30..39 -> "30대"
+            else -> "나이듬"
+        }
+    }
+
+    println(result)
+}
 
 
 
