@@ -2,6 +2,7 @@ package ex22
 
 // Nullable
 //  : Null을 안전하게 다루는 기술
+//  = Optional : Swift
 
 /*
 inline fun <T, R> T.let(block: (T) -> R): R {
