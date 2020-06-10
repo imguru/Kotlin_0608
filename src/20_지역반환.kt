@@ -76,4 +76,16 @@ fun main() {
     val people = listOf(Person("Tom"), Person("Alice"))
 
     lookForAlice3(people)
+
+    // 지역 반환할 때 이름이 존재하지 않는 경우, 이름을 지정할 수 있다.
+    val f = hello@{
+        println("f")
+        return@hello
+    }
 }
+
+
+
+
+
+

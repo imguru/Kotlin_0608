@@ -191,8 +191,14 @@ fun main() {
 }
 
 
+// JetBrains - Kotlin
+//  ; Anko - Android Kotlin
+//  => Android Studio 4.0
+//  => 설치 후에 프로젝트를 한번 생성해서, 애뮬레이터로 구동까지 부탁드립니다.
 
-
+// Rx 소개
+// Kotlin Coroutine
+//  Github API - 간단한 앱
 
 
 
