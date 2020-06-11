@@ -17,6 +17,4 @@ class MainActivity : AppCompatActivity() {
 //  implementation 'com.google.android.material:material:<version>'
 
 // 2. Theme 적용(styles.xml)
-
-
 // https://medium.com/androiddevelopers/migrating-to-material-components-for-android-ec6757795351
