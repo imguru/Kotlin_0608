@@ -17,7 +17,10 @@ import java.util.*
 inline fun <reified T> Gson.fromJson(json: String): T = fromJson(json, T::class.java)
 
 
-fun Call.enqueue(onResponse: (response: Response) -> Unit, onFailure: (e: IOException) -> Unit) {
+inline fun Call.enqueue(
+    crossinline onResponse: (response: Response) -> Unit,
+    crossinline onFailure: (e: IOException) -> Unit
+) {
     enqueue(object : Callback {
         override fun onFailure(call: Call, e: IOException) {
             onFailure(e)
@@ -49,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
         // Kotlin에서 여러개의 함수를 인자로 받는 경우, 파라미터 지정 호출이 좋습니다.
         call.enqueue(onResponse = { response ->
-
             if (response.isSuccessful.not()) {
                 return@enqueue
             }
