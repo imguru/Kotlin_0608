@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import kotlinx.android.synthetic.main.fragment_main.*
 
 // 1.
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 // 3. Fragment
 // MainFragment.kt
 class MainFragment : Fragment() {
+    // var activity: String? = null
+
     // Inflating - XML
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,10 +51,11 @@ class MainFragment : Fragment() {
         button.setOnClickListener {
             // ?: return
             val activity = activity ?: return@setOnClickListener
+
+            // val activity = activity ?: return@foo
             activity.supportFragmentManager.beginTransaction()
                 .replace(R.id.mainFrame, SecondFragment())
                 .commit()
-
 
             /*
             // ?.let
