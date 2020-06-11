@@ -2,6 +2,7 @@ package com.lge.firstApp
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
@@ -16,14 +17,57 @@ import java.util.*
 inline fun <reified T> Gson.fromJson(json: String): T = fromJson(json, T::class.java)
 
 
+fun Call.enqueue(onResponse: (response: Response) -> Unit, onFailure: (e: IOException) -> Unit) {
+    enqueue(object : Callback {
+        override fun onFailure(call: Call, e: IOException) {
+            onFailure(e)
+        }
+
+        override fun onResponse(call: Call, response: Response) {
+            onResponse(response)
+        }
+    })
+}
+
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         button.setOnClickListener {
-            okhttp3Version2()
+            okhttp3Version3()
         }
+    }
+
+    private fun okhttp3Version3() {
+        val client = OkHttpClient()
+        val request = Request.Builder().apply {
+            url("https://api.github.com/users/JakeWharton")
+        }.build()
+        val call = client.newCall(request)
+
+        // Kotlin에서 여러개의 함수를 인자로 받는 경우, 파라미터 지정 호출이 좋습니다.
+        call.enqueue(onResponse = { response ->
+
+            if (response.isSuccessful.not()) {
+                return@enqueue
+            }
+
+            val body = response.body ?: return@enqueue
+            val json = body.string()
+
+            val gson = Gson()
+            val user = gson.fromJson<User>(json)
+
+            runOnUiThread {
+                Toast.makeText(this, "OK - $user", Toast.LENGTH_SHORT).show()
+            }
+
+        }, onFailure = {
+
+        })
+
     }
 
 
@@ -62,7 +106,6 @@ class MainActivity : AppCompatActivity() {
                 val gson = Gson()
                 // val user = gson.fromJson(json, User::class.java)
                 val user = gson.fromJson<User>(json)
-
 
 
                 runOnUiThread {
@@ -188,7 +231,37 @@ data class User(
     @field:SerializedName("updated_at") val updatedAt: Date
 )
 
+/*
+interface OnClickListener {
+    fun onClick(sender: Button)
+}
 
+class Button {
+    var listener: OnClickListener? = null
+
+    fun click() {
+        listener?.onClick(this)
+    }
+}
+
+class Dialog : OnClickListener {
+    fun close() {}
+    fun open() {}
+
+    override fun onClick(sender: Button) {
+        // ....
+    }
+}
+
+fun main() {
+    val openButton = Button()
+    val closeButton = Button()
+    val dialog = Dialog()
+
+    openButton.listener = dialog
+    closeButton.listener = dialog
+}
+*/
 
 
 
