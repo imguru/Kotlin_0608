@@ -45,6 +45,8 @@ class MainActivity : AppCompatActivity() {
             //  : Android's Main Thread: UI를 업데이트 하는 역활
             //    => 네트워크 요청 등의 시간이 오래 걸릴 수 있는 작업에 대해서는 Main Thread에서 수행하면 안된다.
 
+            // Permission denied (missing INTERNET permission?)
+
             // 5. 서버의 응답 코드(statusCode)를 통해 요청의 성공 실패를 판단해야 한다.
             // 200 ~ 299 = OK
             // 400 ~ 499 = Client Error
