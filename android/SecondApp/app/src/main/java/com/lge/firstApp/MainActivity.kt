@@ -54,9 +54,12 @@ class MainActivity : AppCompatActivity() {
 
             // if (response.code in 200..299) {
             if (response.isSuccessful) {
-                val body = response.body
-                val json = body.toString()
-                Log.e("XXX", "Response: $json")
+                response.body?.let { body ->
+                    val json = body.string()  // toString()
+
+
+                    Log.e("XXX", "Response: $json")
+                }
             }
 
         }.start()
