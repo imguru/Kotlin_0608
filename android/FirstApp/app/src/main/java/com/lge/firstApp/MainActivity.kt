@@ -1,9 +1,11 @@
 package com.lge.firstApp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 // 코틀린 기반 안드로이드 프로젝트
 //  - Gradle
@@ -46,19 +48,28 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        // import kotlinx.android.synthetic.main.activity_main.*  확인해야 합니다.
 
-        // val button: Button = findViewById(R.id.button)
-        // val textView = findViewById<TextView>(R.id.textView)
 
         // Kotlin에서는 findViewById를 하지 않아도, 자동으로 view id의 변수를 생성해준다. - kotlin-android-extensions
-        //  android:id="@+id/helloButton"
+        // android:id="@+id/helloButton"   - Kotlin
+        // android:id="@+id/button_hello"  - Java
 
         // 장점: this가 MainActivity로 바인드된다.
         // Rename: Shift + F6
-        helloButton.setOnClickListener {
-            textView.text = "Clicked"
-            Toast.makeText(this, "Hello!", Toast.LENGTH_SHORT).show()
+        button.setOnClickListener {
+            // textView.text = "Clicked"
+            // Toast.makeText(this, "Hello!", Toast.LENGTH_SHORT).show()
+
+            // Activity전환을 위해서는 Intent를 사용해야 합니다.
+            // => Intent에서 class 인자를 전달할 때, java의 클래스 정보를 전달해야 합니다.
+            // SecondActivity::class       - Kotlin's class
+            // SecondActivity::class.java  - Java's class     => Android
+
+            val intent = Intent(this, SecondActivity::class.java)
+            startActivity(intent)
         }
+
     }
 
 
@@ -83,7 +94,16 @@ class MainActivity : AppCompatActivity() {
     */
 }
 
+// SecondActivity.kt
+// => AndriodManifest.xml에 Activity에 대한 정보를 추가해야 한다.
+//    <activity android:name=".SecondActivity" />
+class SecondActivity : AppCompatActivity() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_second)
+    }
+}
 
 
 
