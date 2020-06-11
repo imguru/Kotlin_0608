@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import java.io.IOException
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
                 val body = response.body ?: return
                 val json = body.string()
+
 
                 runOnUiThread {
                     Toast.makeText(this@MainActivity, "OK - $json", Toast.LENGTH_SHORT).show()
@@ -144,39 +146,42 @@ class MainActivity : AppCompatActivity() {
 //    - Github API v4 - GraphQL  X
 //   : https://github.com/JakeWharton
 //    => https://api.github.com/users/JakeWharton
+
 /*
 {
   "login": "JakeWharton",
-  "id": 66577,
-  "node_id": "MDQ6VXNlcjY2NTc3",
   "avatar_url": "https://avatars0.githubusercontent.com/u/66577?v=4",
-  "gravatar_id": "",
-  "url": "https://api.github.com/users/JakeWharton",
-  "html_url": "https://github.com/JakeWharton",
-  "followers_url": "https://api.github.com/users/JakeWharton/followers",
-  "following_url": "https://api.github.com/users/JakeWharton/following{/other_user}",
-  "gists_url": "https://api.github.com/users/JakeWharton/gists{/gist_id}",
-  "starred_url": "https://api.github.com/users/JakeWharton/starred{/owner}{/repo}",
-  "subscriptions_url": "https://api.github.com/users/JakeWharton/subscriptions",
-  "organizations_url": "https://api.github.com/users/JakeWharton/orgs",
-  "repos_url": "https://api.github.com/users/JakeWharton/repos",
-  "events_url": "https://api.github.com/users/JakeWharton/events{/privacy}",
-  "received_events_url": "https://api.github.com/users/JakeWharton/received_events",
-  "type": "User",
-  "site_admin": false,
   "name": "Jake Wharton",
   "company": "Square",
-  "blog": "https://jakewharton.com",
   "location": "Pittsburgh, PA, USA",
-  "email": null,
-  "hireable": null,
-  "bio": null,
-  "twitter_username": null,
   "public_repos": 104,
-  "public_gists": 54,
-  "followers": 57822,
-  "following": 12,
   "created_at": "2009-03-24T16:09:53Z",
   "updated_at": "2020-05-28T00:07:20Z"
 }
 */
+
+
+// VO / DTO
+data class User(
+    val login: String,
+    val avatar_url: String,
+    val name: String,
+    val company: String,
+    val location: String,
+    val public_repos: Int,
+    val created_at: Date,
+    val updated_at: Date
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
