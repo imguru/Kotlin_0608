@@ -2,18 +2,25 @@ package com.lge.firstApp
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.fragment_main.button
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+
+        //-----------
+        // Step 1.
+        setSupportActionBar(toolbar)
+        //-----------
 
         val fragment = FirstFragment()
         supportFragmentManager.commit {
@@ -41,6 +48,19 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()   // default action
         }
+    }
+
+    // Back Button 처리 로직
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+
+        return super.onOptionsItemSelected(item)
     }
 
 }
@@ -79,6 +99,15 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //----------------
+        // Step 2
+        // (activity as AppCompatActivity)
+        // 위처럼 사용하면, BadCastException의 위험이 있습니다.
+
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //----------------
+
+
         button.text = "Second"
         button.setOnClickListener {
             parentFragmentManager.commit {
@@ -87,6 +116,15 @@ class SecondFragment : Fragment() {
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        // Back Button이 사라지지 않기 때문에, 직접 처리해야 한다.
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+    }
+
+
 }
 
 class ThirdFragment : Fragment() {
