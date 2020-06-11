@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.commit
 import kotlinx.android.synthetic.main.fragment_main.*
 
 // 1.
@@ -24,10 +25,16 @@ class MainActivity : AppCompatActivity() {
 
         val fragment = MainFragment()
 
+        /*
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction()
             .replace(R.id.mainFrame, fragment)
             .commit()
+        */
+
+        supportFragmentManager.commit {
+            replace(R.id.mainFrame, fragment)
+        }
     }
 }
 
@@ -49,6 +56,13 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         button.setOnClickListener {
+
+            parentFragmentManager.commit {
+                replace(R.id.mainFrame, SecondFragment())
+            }
+
+
+            /*
             // ?: return
             val activity = activity ?: return@setOnClickListener
 
@@ -56,6 +70,7 @@ class MainFragment : Fragment() {
             activity.supportFragmentManager.beginTransaction()
                 .replace(R.id.mainFrame, SecondFragment())
                 .commit()
+           */
 
             /*
             // ?.let
@@ -92,7 +107,9 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         button.setOnClickListener {
-
+            parentFragmentManager.commit {
+                replace(R.id.mainFrame, MainFragment())
+            }
         }
     }
 }
