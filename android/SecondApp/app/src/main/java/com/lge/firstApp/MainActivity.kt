@@ -65,8 +65,6 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 // Toast.makeText(this, "OK - $user", Toast.LENGTH_SHORT).show()
                 nameTextView.text = user.name
-
-
             }
 
         }, onFailure = {
@@ -222,9 +220,15 @@ class MainActivity : AppCompatActivity() {
 }
 */
 
-
+// Gson
 // 1. @field:SerializedName("avatar_url") => JSON의 키값을 명시할 수 있다.
 // 2. proguard에서 제외해야 한다.
+
+// Glide - Image 처리
+//    implementation 'com.github.bumptech.glide:glide:4.11.0'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+
 data class User(
     val login: String,
     val name: String,
