@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import java.io.IOException
@@ -50,9 +52,14 @@ class MainActivity : AppCompatActivity() {
                 val body = response.body ?: return
                 val json = body.string()
 
+                // 1. User 클래스 작성
+                // 2. Gson 객체를 생성
+                val gson = Gson()
+                val user = gson.fromJson(json, User::class.java)
+
 
                 runOnUiThread {
-                    Toast.makeText(this@MainActivity, "OK - $json", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, "OK - $user", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -161,16 +168,17 @@ class MainActivity : AppCompatActivity() {
 */
 
 
-// VO / DTO
+// 1. @field:SerializedName("avatar_url") => JSON의 키값을 명시할 수 있다.
+// 2. proguard에서 제외해야 한다.
 data class User(
     val login: String,
-    val avatar_url: String,
     val name: String,
     val company: String,
     val location: String,
-    val public_repos: Int,
-    val created_at: Date,
-    val updated_at: Date
+    @field:SerializedName("avatar_url") val avatarUrl: String,
+    @field:SerializedName("public_repos") val publicRepos: Int,
+    @field:SerializedName("created_at") val createdAt: Date,
+    @field:SerializedName("updated_at") val updatedAt: Date
 )
 
 
