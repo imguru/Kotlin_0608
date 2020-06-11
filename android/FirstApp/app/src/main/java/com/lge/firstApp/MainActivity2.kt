@@ -61,7 +61,6 @@ class MainFragment : Fragment() {
                 replace(R.id.mainFrame, SecondFragment())
             }
 
-
             /*
             // ?: return
             val activity = activity ?: return@setOnClickListener
