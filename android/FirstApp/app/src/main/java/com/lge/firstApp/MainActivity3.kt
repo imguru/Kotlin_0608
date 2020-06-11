@@ -12,7 +12,7 @@ import androidx.fragment.app.commit
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.fragment_main.button
 
-class MainActivity : AppCompatActivity() {
+class MainActivity3 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         //-----------
 
-        val fragment = FirstFragment()
+        val fragment = FirstFragment3()
         supportFragmentManager.commit {
             replace(R.id.mainFrame, fragment)
         }
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 // Back Button을 통해 이전의 fragment로 돌아갈 수 있도록 해준다.
 // addToBackStack(null)
 
-class FirstFragment : Fragment() {
+class FirstFragment3 : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -81,7 +81,7 @@ class FirstFragment : Fragment() {
         button.text = "First"
         button.setOnClickListener {
             parentFragmentManager.commit {
-                replace(R.id.mainFrame, SecondFragment())
+                replace(R.id.mainFrame, SecondFragment3())
                 addToBackStack(null)
                 // Back Button을 통해 이전의 fragment로 돌아갈 수 있도록 해준다.
             }
@@ -89,7 +89,7 @@ class FirstFragment : Fragment() {
     }
 }
 
-class SecondFragment : Fragment() {
+class SecondFragment3 : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -111,7 +111,7 @@ class SecondFragment : Fragment() {
         button.text = "Second"
         button.setOnClickListener {
             parentFragmentManager.commit {
-                replace(R.id.mainFrame, ThirdFragment())
+                replace(R.id.mainFrame, ThirdFragment3())
                 addToBackStack(null)
             }
         }
@@ -127,7 +127,7 @@ class SecondFragment : Fragment() {
 
 }
 
-class ThirdFragment : Fragment() {
+class ThirdFragment3 : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
