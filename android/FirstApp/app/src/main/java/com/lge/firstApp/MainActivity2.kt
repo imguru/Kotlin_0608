@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -18,12 +17,12 @@ import kotlinx.android.synthetic.main.fragment_main.*
 //     toolbar
 //     frameLayout - Fragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        val fragment = MainFragment()
+        val fragment = MainFragment2()
 
         /*
         val fragmentManager = supportFragmentManager
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
 // 3. Fragment
 // MainFragment.kt
-class MainFragment : Fragment() {
+class MainFragment2 : Fragment() {
     // var activity: String? = null
 
     // Inflating - XML
@@ -58,7 +57,7 @@ class MainFragment : Fragment() {
         button.setOnClickListener {
 
             parentFragmentManager.commit {
-                replace(R.id.mainFrame, SecondFragment())
+                replace(R.id.mainFrame, SecondFragment2())
             }
 
             /*
@@ -92,7 +91,7 @@ class MainFragment : Fragment() {
     }
 }
 
-class SecondFragment : Fragment() {
+class SecondFragment2 : Fragment() {
     // Inflating - XML
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -107,7 +106,7 @@ class SecondFragment : Fragment() {
 
         button.setOnClickListener {
             parentFragmentManager.commit {
-                replace(R.id.mainFrame, MainFragment())
+                replace(R.id.mainFrame, MainFragment2())
             }
         }
     }
