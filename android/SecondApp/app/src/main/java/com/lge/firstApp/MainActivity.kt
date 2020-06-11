@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.activity_main.*
@@ -65,6 +66,10 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 // Toast.makeText(this, "OK - $user", Toast.LENGTH_SHORT).show()
                 nameTextView.text = user.name
+
+                Glide.with(this)
+                    .load(user.avatarUrl)
+                    .into(avatarImageView)
             }
 
         }, onFailure = {
@@ -207,6 +212,7 @@ class MainActivity : AppCompatActivity() {
 //   : https://github.com/JakeWharton
 //    => https://api.github.com/users/JakeWharton
 
+
 /*
 {
   "login": "JakeWharton",
@@ -228,6 +234,18 @@ class MainActivity : AppCompatActivity() {
 //    implementation 'com.github.bumptech.glide:glide:4.11.0'
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
+// Retrofit
+//   OKHttp를 이용해서 REST API를 처리하면, 매번 비슷한 형태의 코드가 발생한다.
+//   => 코드를 자동으로 생성하는 기술(Annotation)
+//     1) AnnotionProcessor     - 컴파일 타임에 생성하는 방법(Glide)
+//     2) Runtime - Reflection  - Retrofit
+//        implementation 'com.squareup.retrofit2:retrofit:(insert latest version)'
+
+
+//                JSON, XML, Protobuf
+// OkHttpClient ->      Gson           -> User
+//                   CONVERTERS
+//            'com.squareup.retrofit2:converter-gson'
 
 data class User(
     val login: String,
