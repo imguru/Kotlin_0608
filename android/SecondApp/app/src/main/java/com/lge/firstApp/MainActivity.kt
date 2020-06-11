@@ -2,6 +2,7 @@ package com.lge.firstApp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.OkHttpClient
@@ -53,13 +54,29 @@ class MainActivity : AppCompatActivity() {
             // 500 ~ 599 = Server Error
 
             // if (response.code in 200..299) {
+
+            // val json = body?.string()
+
             if (response.isSuccessful) {
+                val json = response.body?.string()
+                if (json != null) {
+
+                    runOnUiThread {
+                        Toast.makeText(this, "OK - $json", Toast.LENGTH_SHORT).show()
+                        // Can't toast on a thread that has not called Looper.prepare()
+                        //   : 메인 스레드가 아닌 다른 스레드에서 UI에 대한 업데이트를 수행하였다.
+                    }
+
+                }
+
+                /*
                 response.body?.let { body ->
                     val json = body.string()  // toString()
 
-
-                    Log.e("XXX", "Response: $json")
+                    // Log.e("XXX", "Response: $json")
+                    Toast.makeText(this, "OK - $json", Toast.LENGTH_SHORT).show()
                 }
+                */
             }
 
         }.start()
