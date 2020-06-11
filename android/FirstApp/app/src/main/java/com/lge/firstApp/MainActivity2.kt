@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.fragment_main.*
 
 // 1.
 // styles.xml
@@ -40,8 +41,57 @@ class MainFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        button.setOnClickListener {
+            // ?: return
+            val activity = activity ?: return@setOnClickListener
+            activity.supportFragmentManager.beginTransaction()
+                .replace(R.id.mainFrame, SecondFragment())
+                .commit()
+
+
+            /*
+            // ?.let
+            activity?.let { activity ->
+                activity.supportFragmentManager.beginTransaction()
+                    .replace(R.id.mainFrame, SecondFragment())
+                    .commit()
+            }
+            */
+
+            // ?.
+            /*
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.mainFrame, SecondFragment())
+                ?.commit()
+            */
+
+
+        }
+    }
 }
 
+class SecondFragment : Fragment() {
+    // Inflating - XML
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_second, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        button.setOnClickListener {
+
+        }
+    }
+}
 
 
 
