@@ -11,6 +11,11 @@ import okhttp3.*
 import java.io.IOException
 import java.util.*
 
+// gson.fromJson(json, User::class.java)
+
+inline fun <reified T> Gson.fromJson(json: String): T = fromJson(json, T::class.java)
+
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +60,9 @@ class MainActivity : AppCompatActivity() {
                 // 1. User 클래스 작성
                 // 2. Gson 객체를 생성
                 val gson = Gson()
-                val user = gson.fromJson(json, User::class.java)
+                // val user = gson.fromJson(json, User::class.java)
+                val user = gson.fromJson<User>(json)
+
 
 
                 runOnUiThread {
