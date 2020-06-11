@@ -1,9 +1,12 @@
 package com.lge.firstApp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.edit
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -43,8 +46,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 // SAM(Single Abstract Method)
 // => 자바의 인터페이스 중에 메소드가 한개인 경우, 익명 객체가 아닌 '람다 표현식'으로 사용할 수 있다.
-
-class MainActivity : AppCompatActivity() {
+class MainActivity1 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -66,8 +68,12 @@ class MainActivity : AppCompatActivity() {
             // SecondActivity::class       - Kotlin's class
             // SecondActivity::class.java  - Java's class     => Android
 
+            /*
             val intent = Intent(this, SecondActivity::class.java)
             startActivity(intent)
+            */
+            startActivity<SecondActivity1>()
+
         }
 
     }
@@ -97,17 +103,60 @@ class MainActivity : AppCompatActivity() {
 // SecondActivity.kt
 // => AndriodManifest.xml에 Activity에 대한 정보를 추가해야 한다.
 //    <activity android:name=".SecondActivity" />
-class SecondActivity : AppCompatActivity() {
+class SecondActivity1 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
+
+        button.setOnClickListener {
+            // Toast.makeText(this, "Toast!", Toast.LENGTH_SHORT).show()
+            toast("Toast!")
+            // toast(this, "Toast!")
+
+
+            val pref = getSharedPreferences("com.lge.app", Context.MODE_PRIVATE)
+            val editor = pref.edit()
+            editor.putInt("age", 42)
+            editor.commit()
+
+            // core-ktx
+            pref.edit(true) {
+                editor.putInt("age1", 42)
+                editor.putInt("age2", 42)
+                editor.putInt("age3", 42)
+            }
+        }
+
     }
 }
 
+// Anko - Jetbrains에서 만든 안드로이드 전용 코틀린 라이브러리
+//    => Extension Function
+//    => 안드로이드에서 많이 사용하는 코드를 간결하게 사용할 수 있도록 하는 기능을 제공하고 있습니다.
+//    => 하지만, Anko는 더 이상 사용하면 안됩니다.
+/*
+fun toast(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}
+*/
 
+fun Context.toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
 
+inline fun <reified T> Context.startActivity() {
+    val intent = Intent(this, T::class.java)
+    startActivity(intent)
+}
 
+// 안드로이드에서 화면을 구성하는 방법
+// 1. Activity
+//     startActivity()
+//     finish()
+
+// 2. Fragment
+//     FragmentManager - add / replace
 
 
 
