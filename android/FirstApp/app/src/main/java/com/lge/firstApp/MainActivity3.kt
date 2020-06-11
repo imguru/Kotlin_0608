@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.fragment.app.commit
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.fragment_main.button
@@ -138,6 +139,26 @@ class ThirdFragment3 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         button.text = "Third"
+        button.setOnClickListener {
+            parentFragmentManager.commit {
+                replace(R.id.mainFrame, ForthFragment3())
+                addToBackStack(null)
+            }
+        }
+    }
+}
+
+class ForthFragment3 : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_main, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        button.text = "Forth"
         button.setOnClickListener {
 
         }

@@ -47,9 +47,6 @@ class MainActivity2 : AppCompatActivity() {
 interface GithubApi {
     @GET("users/{name}")
     fun getUser(@Path("name") name: String): Call<User>
-
-
-
 }
 
 // 2. Retrofit을 통해 코드를 생성한다.
@@ -59,6 +56,8 @@ val githubApi: GithubApi = Retrofit.Builder().apply {
     baseUrl("https://api.github.com")
     client(OkHttpClient())
     addConverterFactory(GsonConverterFactory.create())
+
+
 
 
 }.build().create(GithubApi::class.java)
