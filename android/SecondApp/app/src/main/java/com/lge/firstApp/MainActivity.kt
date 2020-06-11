@@ -133,6 +133,11 @@ class MainActivity : AppCompatActivity() {
 //   app - build.gradle
 //    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
 
+//                직렬화(Serialization)
+//  => JSON -> Object -> JSON
+//  역직렬화(Deserialization)
+//  : Gson(https://github.com/google/gson)
+//     implementation 'com.google.code.gson:gson:2.8.6'
 
 // Server 연동
 //    - Github API v3 - REST API(JSON)
