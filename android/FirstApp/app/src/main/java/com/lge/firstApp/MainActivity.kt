@@ -2,9 +2,8 @@ package com.lge.firstApp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 
 // 코틀린 기반 안드로이드 프로젝트
 //  - Gradle
@@ -35,8 +34,35 @@ import android.widget.TextView
 //        jvmTarget = JavaVersion.VERSION_1_8.toString()
 // }
 
-// Java Version
+// Application Context
+//        |
+// Activity Context
+
+
+// SAM(Single Abstract Method)
+// => 자바의 인터페이스 중에 메소드가 한개인 경우, 익명 객체가 아닌 '람다 표현식'으로 사용할 수 있다.
+
 class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // val button: Button = findViewById(R.id.button)
+        // val textView = findViewById<TextView>(R.id.textView)
+
+        // Kotlin에서는 findViewById를 하지 않아도, 자동으로 view id의 변수를 생성해준다. - kotlin-android-extensions
+        //  android:id="@+id/helloButton"
+
+        // 장점: this가 MainActivity로 바인드된다.
+        // Rename: Shift + F6
+        helloButton.setOnClickListener {
+            textView.text = "Clicked"
+            Toast.makeText(this, "Hello!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    /*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,13 +70,17 @@ class MainActivity : AppCompatActivity() {
         val button: Button = findViewById(R.id.button)
         val textView = findViewById<TextView>(R.id.textView)
 
-        button.setOnClickListener(object: View.OnClickListener {
+        button.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
+                // textView.setText("Clicked")
                 textView.text = "Clicked"
+                Toast.makeText(this@MainActivity, "Hello!", Toast.LENGTH_SHORT).show()
+                // this: 익명 객체에 대한 참조
+                // this@MainActivity: 외부 MainActivity에 대한 참조
             }
         })
-
     }
+    */
 }
 
 
