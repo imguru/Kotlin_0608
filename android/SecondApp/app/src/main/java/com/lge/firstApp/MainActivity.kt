@@ -63,7 +63,10 @@ class MainActivity : AppCompatActivity() {
             val user = gson.fromJson<User>(json)
 
             runOnUiThread {
-                Toast.makeText(this, "OK - $user", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(this, "OK - $user", Toast.LENGTH_SHORT).show()
+                nameTextView.text = user.name
+
+
             }
 
         }, onFailure = {
