@@ -3,8 +3,12 @@ package com.lge.firstApp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.annotation.GlideExtension
+import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.module.AppGlideModule
+import com.bumptech.glide.request.BaseRequestOptions
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.OkHttp
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,14 +37,29 @@ class MainActivity2 : AppCompatActivity() {
                     val user = response.body() ?: return
 
                     nameTextView.text = user.name
+
                     Glide.with(this@MainActivity2)
                         .load(user.avatarUrl)
+                        .placeholder(R.drawable.ic_launcher_background)
                         .into(avatarImageView)
                 }
             })
         }
     }
 }
+
+
+
+@GlideModule
+class MyAppGlideModule : AppGlideModule()
+
+fun <T> GlideRequest<T>.default(): GlideRequest<T> {
+    val options = RequestOptions()
+        .circleCrop()
+        .placeholder(R.drawable.ic_launcher_background)
+    return apply(options)
+}
+
 
 // Retrofit
 // 1. API Interface를 설계한다.
@@ -58,13 +77,7 @@ val githubApi: GithubApi = Retrofit.Builder().apply {
     addConverterFactory(GsonConverterFactory.create())
 
 
-
-
 }.build().create(GithubApi::class.java)
-
-
-
-
 
 
 

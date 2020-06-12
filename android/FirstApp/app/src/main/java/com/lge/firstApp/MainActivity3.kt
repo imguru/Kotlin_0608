@@ -82,20 +82,24 @@ class FirstFragment3 : Fragment() {
         button.text = "First"
         button.setOnClickListener {
             parentFragmentManager.commit {
-                replace(R.id.mainFrame, SecondFragment3())
-                addToBackStack(null)
+                add(R.id.mainFrame, SecondFragment3())
+                addToBackStack("first")
                 // Back Button을 통해 이전의 fragment로 돌아갈 수 있도록 해준다.
             }
         }
     }
 }
 
+fun Fragment.appCompatActivity(): AppCompatActivity? = activity as? AppCompatActivity
+val Fragment.appCompatActivity: AppCompatActivity?
+    get() = activity as? AppCompatActivity
+
 class SecondFragment3 : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_main, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_main2, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -105,7 +109,10 @@ class SecondFragment3 : Fragment() {
         // (activity as AppCompatActivity)
         // 위처럼 사용하면, BadCastException의 위험이 있습니다.
 
-        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        // (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        // appCompatActivity()?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        appCompatActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //----------------
 
 
@@ -113,7 +120,7 @@ class SecondFragment3 : Fragment() {
         button.setOnClickListener {
             parentFragmentManager.commit {
                 replace(R.id.mainFrame, ThirdFragment3())
-                addToBackStack(null)
+                addToBackStack("second")
             }
         }
     }
@@ -142,7 +149,7 @@ class ThirdFragment3 : Fragment() {
         button.setOnClickListener {
             parentFragmentManager.commit {
                 replace(R.id.mainFrame, ForthFragment3())
-                addToBackStack(null)
+                addToBackStack("third")
             }
         }
     }
@@ -160,7 +167,17 @@ class ForthFragment3 : Fragment() {
 
         button.text = "Forth"
         button.setOnClickListener {
+            // parentFragmentManager.popBackStack() // 이전으로 이동합니다.
+            // parentFragmentManager.popBackStack(null, POP_BACK_STACK_INCLUSIVE)  // 가장 처음으로 돌아갑니다.
+            parentFragmentManager.popBackStack("first", POP_BACK_STACK_INCLUSIVE)
 
         }
     }
 }
+
+
+
+
+
+
+
