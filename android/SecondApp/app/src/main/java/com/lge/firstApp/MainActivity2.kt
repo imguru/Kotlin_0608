@@ -2,22 +2,12 @@ package com.lge.firstApp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.annotation.GlideExtension
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
-import com.bumptech.glide.request.BaseRequestOptions
-import com.bumptech.glide.request.RequestOptions
+import com.lge.firstApp.model.User
+import com.lge.firstApp.net.githubApi
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
-
 
 class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +15,25 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         button.setOnClickListener {
+
+            val call = githubApi.getUser("JakeWharton")
+            call.enqueue(object : Callback<User> {
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                }
+
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (!response.isSuccessful)
+                        return
+
+                    val user = response.body() ?: return
+                    nameTextView.text = user.name
+                    GlideApp.with(this@MainActivity2)
+                        .load(user.avatarUrl)
+                        .avatar()
+                        .into(avatarImageView)
+
+                }
+            })
 
         }
     }
