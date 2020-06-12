@@ -6,6 +6,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.module.AppGlideModule
+import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,6 +36,21 @@ inline fun Call.enqueue(
     })
 }
 
+// Glide에서 이미지를 처리하는 방법을 사용자 정의 함수로 제공할 수 있다.
+// => annotationProcessor를 이용해서 코드를 생성하는 기술
+
+// Step 1.
+@GlideModule
+class MyAppGlideModule : AppGlideModule()
+
+// Step 2. 원하는 기능을 확장할 수 있다.
+fun <T> GlideRequest<T>.avatar(): GlideRequest<T> {
+    val options = RequestOptions()
+        .circleCrop()
+        .placeholder(R.drawable.ic_launcher_background)
+    return apply(options)
+}
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +69,8 @@ class MainActivity : AppCompatActivity() {
         }.build()
         val call = client.newCall(request)
 
-        // Kotlin에서 여러개의 함수를 인자로 받는 경우, 파라미터 지정 호출이 좋습니다.
+
+        // Kotlin에서 여러개의 함수를 인자로 받는 경우, '파라미터 지정 호출'이 좋습니다.
         call.enqueue(onResponse = { response ->
             if (response.isSuccessful.not()) {
                 return@enqueue
@@ -67,8 +86,12 @@ class MainActivity : AppCompatActivity() {
                 // Toast.makeText(this, "OK - $user", Toast.LENGTH_SHORT).show()
                 nameTextView.text = user.name
 
-                Glide.with(this)
-                    .load(user.avatarUrl)
+                GlideApp.with(this)
+                    // .load(user.avatarUrl)
+                    .load("XXX")
+//                    .placeholder(R.drawable.ic_launcher_background)
+//                    .circleCrop()
+                    .avatar()
                     .into(avatarImageView)
             }
 
@@ -129,7 +152,7 @@ class MainActivity : AppCompatActivity() {
         // 1. OkHttpClient 객체 생성
         val client = OkHttpClient()
 
-        // 2. Request - GET
+        // 2. Request - GET / POST / PUT / DELETE
         val request = Request.Builder().apply {
             url("https://api.github.com/users/JakeWharton")
         }.build()

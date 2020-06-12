@@ -50,17 +50,6 @@ class MainActivity2 : AppCompatActivity() {
 
 
 
-@GlideModule
-class MyAppGlideModule : AppGlideModule()
-
-fun <T> GlideRequest<T>.default(): GlideRequest<T> {
-    val options = RequestOptions()
-        .circleCrop()
-        .placeholder(R.drawable.ic_launcher_background)
-    return apply(options)
-}
-
-
 // Retrofit
 // 1. API Interface를 설계한다.
 interface GithubApi {
