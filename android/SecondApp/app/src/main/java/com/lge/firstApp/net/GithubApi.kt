@@ -1,5 +1,6 @@
 package com.lge.firstApp.net
 
+import com.lge.firstApp.model.SearchResult
 import com.lge.firstApp.model.User
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -7,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 // REST API를 연동할 때 반복적으로 발생하는 코드가 있습니다.
 // 1. HTTP 클라이언트를 이용해서 요청을 작성하고,
@@ -24,7 +26,13 @@ interface GithubApi {
     // Response.body: JSON -> User
     //                  Converter(Gson)
 
-    // https://api.github.com/search/repositories?q=Kotlin&page=1&per_page=5
+    // search/repositories?q=Kotlin&page=1&per_page=5
+    @GET("search/repositories")
+    fun searchRepo(
+        @Query("q") q: String,
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int
+    ): Call<SearchResult>
 
 }
 
