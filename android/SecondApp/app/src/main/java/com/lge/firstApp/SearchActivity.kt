@@ -36,7 +36,7 @@ class SearchActivity : AppCompatActivity() {
                     }
 
                     val result = response.body() ?: return
-                    Log.e("XXX", "$result")
+                    // Log.e("XXX", "$result")
                 }
 
             })
