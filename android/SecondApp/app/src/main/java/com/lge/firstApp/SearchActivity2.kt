@@ -103,9 +103,14 @@ class SListIterator(var current: Node? = null) : Iterator<Int> {
 
 // 아래 라이브러리에 대한 의존성 추가가 필요합니다.
 // RxJava
+//  - implementation "io.reactivex.rxjava3:rxjava:3.0.4"
 // RxKotlin
+//  - implementation "io.reactivex.rxjava3:rxkotlin:3.x.y"
 // RxAndroid
-// Retrofit + Rx
+//  - implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
+// Retrofit +
+//  - implementation 'com.squareup.retrofit2:adapter-rxjava2:latest.version'
 
 
 
