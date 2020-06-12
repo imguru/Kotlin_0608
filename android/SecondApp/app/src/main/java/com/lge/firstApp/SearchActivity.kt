@@ -1,10 +1,14 @@
 package com.lge.firstApp
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_search.*
-
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.lge.firstApp.model.Repo
+import kotlinx.android.synthetic.main.item_repo.view.*
 
 class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,20 +18,56 @@ class SearchActivity : AppCompatActivity() {
 
         // Recycler View 사용하는 방법
         //  : ListView -> RecyclerView
-        // 1) View holder Pattern을 ListView는 직접 구현해야 합니다.
+        //   1) View holder Pattern을 ListView는 직접 구현해야 합니다.
         //     searchRecyclerView.layoutManager = LinearLayoutManager(this)
-        // 2) GridView 같은 View의 표현 방식이 불가능하다.
+        //   2) GridView 같은 View의 표현 방식이 불가능하다.
         //   => Layout Manager
         //     - 코드로 직접 작성하는 방법
         //     - XML을 통해 작성하는 방법
         //      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
-
-
-
-
+        // 데이터를 RecyclerView에 표현하기 위해서는 'Adapter'가 필요합니다.
     }
 }
+
+
+// View holder Pattern: 화면에 보이는 만큼의 View만 생성하고, View의 내용을 바꾸면서 재사용하는 기법
+
+// View를 담는 객체
+class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
+    LayoutInflater.from(parent.context).inflate(R.layout.item_repo, parent, false)
+)
+
+class SearchAdapter : RecyclerView.Adapter<ViewHolder>() {
+    var items: List<Repo> = emptyList()
+
+    override fun getItemCount(): Int {
+        return 5
+    }
+
+    // 재사용 가능한 View가 없을 경우, 생성하는 함수
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(parent)
+
+
+    // 재사용하는 View에 대해서 내용을 변경하는 함수
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val model = items[position]
+
+        holder.itemView.repoTextView.text = model.fullName
+        holder.itemView.descTextView.text = model.description
+        holder.itemView.nameTextView.text = model.owner.login
+
+        GlideApp.with(holder.itemView)
+            .load(model.owner.avatarUrl)
+            .avatar()
+            .into(holder.itemView.avatarImageView)
+    }
+}
+
+
+
+
+
 
 
 /*
