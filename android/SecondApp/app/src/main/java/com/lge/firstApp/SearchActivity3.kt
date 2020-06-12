@@ -2,8 +2,10 @@ package com.lge.firstApp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.lge.firstApp.net.githubApi
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.kotlin.plusAssign
@@ -39,16 +41,25 @@ class SearchActivity3 : AppCompatActivity() {
             }).addTo(disposeBag)
             */
 
-            disposeBag += observable.subscribeBy(onNext = { user ->
-                Log.e("XXX", "onNext - $user")
+            disposeBag += observable
+                .observeOn(AndroidSchedulers.mainThread())          // Observer의 동작이 수행되는 스레드를 지정할 수 있다.
+                .subscribeBy(onNext = { user ->
+                    Log.e("XXX", "onNext - $user")
 
-            }, onError = {
+                    Toast.makeText(
+                        this@SearchActivity3,
+                        "user - ${user.name} / ${user.company}",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-                Log.e("XXX", "onError - $it")
-            }, onComplete = {
 
-                Log.e("XXX", "onComplete")
-            })
+                }, onError = {
+
+                    Log.e("XXX", "onError - $it")
+                }, onComplete = {
+
+                    Log.e("XXX", "onComplete")
+                })
 
 
         }

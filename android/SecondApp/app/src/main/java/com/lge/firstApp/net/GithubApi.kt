@@ -77,7 +77,7 @@ private val retrofit: Retrofit = Retrofit.Builder().apply {
     addConverterFactory(GsonConverterFactory.create())
 
     // Rx : Call<T> -> Observable<T>
-    addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+    addCallAdapterFactory(RxJava3CallAdapterFactory.create())  // 비동기
 
 }.build()
 
