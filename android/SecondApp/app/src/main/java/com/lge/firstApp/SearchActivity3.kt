@@ -65,6 +65,9 @@ class SearchActivity3 : AppCompatActivity() {
 
         disposeBag += queryEditText.textChanges()
             .throttleLast(2, TimeUnit.SECONDS)
+            .doOnEach {
+                Log.e("XXX", "doOnEach")
+            }
             .filter {
                 it.isNotBlank()
             }
@@ -80,9 +83,6 @@ class SearchActivity3 : AppCompatActivity() {
             }, onError = {
                 Log.e("XXX", "Error - ${it.localizedMessage}")
             })
-
-
-
 
 
         /*
