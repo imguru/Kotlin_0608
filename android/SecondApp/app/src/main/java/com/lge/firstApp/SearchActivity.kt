@@ -8,12 +8,58 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.lge.firstApp.model.Repo
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.item_repo.view.*
 
 class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        val adapter = SearchAdapter()
+        searchRecyclerView.adapter = adapter
+
+        searchButton.setOnClickListener {
+
+            adapter.items = listOf(
+                Repo(
+                    name = "JetBrains/Kotlin",
+                    description = "xxxxxxxxxxxx",
+                    fullName = "JetBrains/Kotlin",
+                    private = true,
+                    owner = Repo.Owner(
+                        login = "google",
+                        avatarUrl = "https://pbs.twimg.com/profile_banners/113419064/1398369112/1080x360",
+                        type = "User"
+                    )
+                ),
+                Repo(
+                    name = "JetBrains/Kotlin",
+                    description = "xxxxxxxxxxxx",
+                    fullName = "JetBrains/Kotlin",
+                    private = true,
+                    owner = Repo.Owner(
+                        login = "google",
+                        avatarUrl = "https://pbs.twimg.com/profile_banners/113419064/1398369112/1080x360",
+                        type = "User"
+                    )
+                ),
+                Repo(
+                    name = "JetBrains/Kotlin",
+                    description = "xxxxxxxxxxxx",
+                    fullName = "JetBrains/Kotlin",
+                    private = true,
+                    owner = Repo.Owner(
+                        login = "google",
+                        avatarUrl = "https://pbs.twimg.com/profile_banners/113419064/1398369112/1080x360",
+                        type = "User"
+                    )
+                )
+            )
+
+            adapter.notifyDataSetChanged() // !!
+
+        }
 
 
         // Recycler View 사용하는 방법
@@ -41,9 +87,7 @@ class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 class SearchAdapter : RecyclerView.Adapter<ViewHolder>() {
     var items: List<Repo> = emptyList()
 
-    override fun getItemCount(): Int {
-        return 5
-    }
+    override fun getItemCount(): Int = items.count()
 
     // 재사용 가능한 View가 없을 경우, 생성하는 함수
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
