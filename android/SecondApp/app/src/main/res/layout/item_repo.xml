@@ -52,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="@+id/repoTextView"
             app:layout_constraintStart_toStartOf="@+id/repoTextView"
             app:layout_constraintTop_toBottomOf="@+id/repoTextView"
-            tools:text="Learn how to make online games, and apps for Android O, like Pokémon , twitter,Tic Tac Toe, and notepad using Kotlin" />
+            tools:text="Learn how to make online games" />
 
         <TextView
             android:id="@+id/nameTextView"
