@@ -133,7 +133,6 @@ class SearchAdapter : RecyclerView.Adapter<ViewHolder>() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { user ->
                     companyTextView.text = user.company
-                    Log.e("XXX", "$user")
                 }.addTo(holder.disposeBag)
 
             GlideApp.with(this)
