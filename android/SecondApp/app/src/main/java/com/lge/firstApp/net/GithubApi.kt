@@ -37,7 +37,7 @@ interface GithubApi {
     fun searchRepo(
         @Query("q") q: String,
         @Query("page") page: Int = 1,
-        @Query("per_page") perPage: Int = 5
+        @Query("per_page") perPage: Int = 20
     ): Call<SearchResult>
 
     // Rx - Observable<T>

@@ -12,6 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lge.firstApp.model.Repo
 import com.lge.firstApp.model.SearchResult
 import com.lge.firstApp.net.githubApi
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.kotlin.plusAssign
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.item_repo.view.*
 import retrofit2.Call
@@ -84,7 +89,9 @@ class SearchActivity : AppCompatActivity() {
 // View를 담는 객체
 class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.item_repo, parent, false)
-)
+) {
+    var disposeBag = CompositeDisposable()
+}
 
 class SearchAdapter : RecyclerView.Adapter<ViewHolder>() {
     var items: List<Repo> = emptyList()
@@ -115,11 +122,19 @@ class SearchAdapter : RecyclerView.Adapter<ViewHolder>() {
             .into(holder.itemView.avatarImageView)
         */
 
+        holder.disposeBag.dispose()
+        holder.disposeBag = CompositeDisposable()
         with(holder.itemView) {
             repoTextView.text = model.fullName
             descTextView.text = model.description
             nameTextView.text = model.owner.login
-            companyTextView.text = model.company
+
+            githubApi.rxGetUser(model.owner.login)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { user ->
+                    companyTextView.text = user.company
+                    Log.e("XXX", "$user")
+                }.addTo(holder.disposeBag)
 
             GlideApp.with(this)
                 .load(model.owner.avatarUrl)
