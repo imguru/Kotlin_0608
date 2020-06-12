@@ -2,11 +2,12 @@ package com.lge.firstApp.net
 
 import com.lge.firstApp.model.SearchResult
 import com.lge.firstApp.model.User
-import okhttp3.OkHttp
+import io.reactivex.rxjava3.core.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -23,6 +24,7 @@ import retrofit2.http.Query
 // Retrofit 적용 방법
 // 1. Inteface 를 정의한다.
 interface GithubApi {
+    // Call<T>
     @GET("users/{name}")
     fun getUser(@Path("name") name: String): Call<User>
     // Response.body: JSON -> User
@@ -35,6 +37,17 @@ interface GithubApi {
         @Query("page") page: Int = 1,
         @Query("per_page") perPage: Int = 5
     ): Call<SearchResult>
+
+    // Rx - Observable<T>
+    @GET("users/{name}")
+    fun rxGetUser(@Path("name") name: String): Observable<User>
+
+    @GET("search/repositories")
+    fun rxSearchRepo(
+        @Query("q") q: String,
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 5
+    ): Observable<SearchResult>
 
 }
 
@@ -60,6 +73,9 @@ private val retrofit: Retrofit = Retrofit.Builder().apply {
     client(client)
 
     addConverterFactory(GsonConverterFactory.create())
+
+    // Rx : Call<T> -> Observable<T>
+    addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
 
 }.build()
 
