@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.jakewharton.rxbinding4.view.clicks
+import com.jakewharton.rxbinding4.widget.textChanges
 import com.lge.firstApp.model.Repo
 import com.lge.firstApp.net.githubApi
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -61,6 +62,26 @@ class SearchActivity3 : AppCompatActivity() {
             }, onError = {
                 Log.e("XXX", "Error - ${it.localizedMessage}")
             })
+
+        disposeBag += queryEditText.textChanges()
+            .throttleLast(2, TimeUnit.SECONDS)
+            .filter {
+                it.isNotBlank()
+            }
+            .map {
+                it.trim().toString()
+            }
+            .flatMap { keyword ->
+                githubApi.rxSearchRepo(keyword)
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onNext = { result ->
+                adapter.items = result.items
+            }, onError = {
+                Log.e("XXX", "Error - ${it.localizedMessage}")
+            })
+
+
 
 
 
