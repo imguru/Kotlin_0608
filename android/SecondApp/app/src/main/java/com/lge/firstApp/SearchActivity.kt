@@ -10,6 +10,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
+class SearchActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_search)
+    }
+}
+
+
+/*
 class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,3 +54,4 @@ class SearchActivity : AppCompatActivity() {
 
     }
 }
+*/
