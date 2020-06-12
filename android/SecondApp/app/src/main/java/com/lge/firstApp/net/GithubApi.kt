@@ -23,6 +23,9 @@ interface GithubApi {
     fun getUser(@Path("name") name: String): Call<User>
     // Response.body: JSON -> User
     //                  Converter(Gson)
+
+    // https://api.github.com/search/repositories?q=Kotlin&page=1&per_page=5
+
 }
 
 // 2. GithubApi 인터페이스를 기반으로 코드를 생성합니다.

@@ -29,7 +29,6 @@ class MainActivity2 : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
-                    Log.e("XXX", "code - ${response.code()}")
                     if (!response.isSuccessful)
                         return
 
