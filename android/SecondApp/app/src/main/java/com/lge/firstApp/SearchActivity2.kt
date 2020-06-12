@@ -48,6 +48,7 @@ import retrofit2.Response
 // Iterable<Int>           -            Iterator<Int>
 
 
+/*
 class Node(var n: Int, var next: Node? = null)
 
 class SList : Iterable<Int> {
@@ -74,9 +75,42 @@ class SListIterator(var current: Node? = null) : Iterator<Int> {
         return ret
     }
 }
+*/
+
+// Iterable     - Iterator - pull
+// Observable   - Observer - push
+
+
+// Rx의 5가지 요소
+// 1. Observable
+//   : 이벤트를 만들어내는 주체로 이벤트 스트림을 통해 이벤트를 내보냅니다.
+
+// 2. Observer
+//   : Observable에서 만들어진 이벤트에 반응하는 객체. 이벤트를 받았을 때 수행할 작업을 정의합니다.
+//    "Observer가 Observable을 구독(Subscribe)한다" 라고 표현합니다.
+
+// 3. Operator(연산자)
+//   : 연산자는 이벤트 스트림을 통해 전달되는 이벤트를 대상으로 연산을 수행합니다.
+//    - map, flatMap, filter, zip, combine ...
+
+// 4. Scheduler
+//   : 작업을 수행할 스레드를 지정할 수 있습니다.
+//    - Main, IO, Worker, 새로운 스레드
+
+// 5. Disposable
+//   : Obsever가 Observable에 대해 구독할 때 생성되는 객체로, Observable에서 만드는 이벤트 스트림과
+//     필요한 리소스를 관리합니다.
+
+// 아래 라이브러리에 대한 의존성 추가가 필요합니다.
+// RxJava
+// RxKotlin
+// RxAndroid
+// Retrofit + Rx
+
 
 
 class SearchActivity2 : AppCompatActivity() {
+    /*
     fun main() {
         val list = SList()
         list.pushFront(10)
@@ -103,16 +137,15 @@ class SearchActivity2 : AppCompatActivity() {
         Log.e("XXX", "${list.filter { e ->
             e > 10
         }}")
-
-
     }
+    */
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        main()
+        // main()
 
         val adapter = SearchAdapter()
         searchRecyclerView.adapter = adapter
