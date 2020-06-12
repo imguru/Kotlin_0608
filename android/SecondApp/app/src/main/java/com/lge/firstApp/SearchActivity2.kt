@@ -100,6 +100,7 @@ class SListIterator(var current: Node? = null) : Iterator<Int> {
 // 5. Disposable
 //   : Obsever가 Observable에 대해 구독할 때 생성되는 객체로, Observable에서 만드는 이벤트 스트림과
 //     필요한 리소스를 관리합니다.
+//   => 사용하지 않을 때 해지해야 한다.
 
 // 아래 라이브러리에 대한 의존성 추가가 필요합니다.
 // RxJava
