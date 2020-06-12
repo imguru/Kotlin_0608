@@ -25,48 +25,25 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         button.setOnClickListener {
-            githubApi.getUser("JakeWharton").enqueue(object : Callback<User> {
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                }
 
-                // UI Thread에서 수행되는 것을 보장합니다.
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if (!response.isSuccessful)
-                        return
-
-                    val user = response.body() ?: return
-
-                    nameTextView.text = user.name
-
-                    Glide.with(this@MainActivity2)
-                        .load(user.avatarUrl)
-                        .placeholder(R.drawable.ic_launcher_background)
-                        .into(avatarImageView)
-                }
-            })
         }
     }
 }
 
 
 
-// Retrofit
-// 1. API Interface를 설계한다.
-interface GithubApi {
-    @GET("users/{name}")
-    fun getUser(@Path("name") name: String): Call<User>
-}
-
-// 2. Retrofit을 통해 코드를 생성한다.
-val githubApi: GithubApi = Retrofit.Builder().apply {
-
-    // 서버의 주소를 설정한다.
-    baseUrl("https://api.github.com")
-    client(OkHttpClient())
-    addConverterFactory(GsonConverterFactory.create())
 
 
-}.build().create(GithubApi::class.java)
+
+
+
+
+
+
+
+
+
+
 
 
 

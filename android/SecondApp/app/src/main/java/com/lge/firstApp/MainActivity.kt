@@ -1,20 +1,16 @@
 package com.lge.firstApp
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
+import com.lge.firstApp.model.User
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import java.io.IOException
-import java.util.*
 
 // gson.fromJson(json, User::class.java)
 
@@ -47,7 +43,7 @@ class MyAppGlideModule : AppGlideModule()
 fun <T> GlideRequest<T>.avatar(): GlideRequest<T> {
     val options = RequestOptions()
         .circleCrop()
-        .placeholder(R.drawable.ic_launcher_background)
+        .placeholder(R.drawable.ic_launcher_foreground)
     return apply(options)
 }
 
@@ -269,17 +265,6 @@ class MainActivity : AppCompatActivity() {
 // OkHttpClient ->      Gson           -> User
 //                   CONVERTERS
 //            'com.squareup.retrofit2:converter-gson'
-
-data class User(
-    val login: String,
-    val name: String,
-    val company: String,
-    val location: String,
-    @field:SerializedName("avatar_url") val avatarUrl: String,
-    @field:SerializedName("public_repos") val publicRepos: Int,
-    @field:SerializedName("created_at") val createdAt: Date,
-    @field:SerializedName("updated_at") val updatedAt: Date
-)
 
 /*
 interface OnClickListener {
