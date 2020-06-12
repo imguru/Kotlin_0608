@@ -1,20 +1,31 @@
 package com.lge.firstApp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.lge.firstApp.model.SearchResult
-import com.lge.firstApp.net.githubApi
-import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_search.*
 
 
 class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+
+        // Recycler View 사용하는 방법
+        //  : ListView -> RecyclerView
+        // 1) View holder Pattern을 ListView는 직접 구현해야 합니다.
+        //     searchRecyclerView.layoutManager = LinearLayoutManager(this)
+        // 2) GridView 같은 View의 표현 방식이 불가능하다.
+        //   => Layout Manager
+        //     - 코드로 직접 작성하는 방법
+        //     - XML을 통해 작성하는 방법
+        //      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+
+
+
+
     }
 }
 
