@@ -39,17 +39,18 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     // Java   - annotationProcessor
     // Kotlin - kapt
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation "com.github.bumptech.glide:glide:$glide_version"
     // annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 
 
     // Jetpack

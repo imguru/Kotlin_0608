@@ -36,6 +36,11 @@ interface GithubApi {
 
 }
 
+// HTTP 요청에 대한 결과에 대해서 로깅하고 싶다.
+// => Logging Interceptor 적용하면 됩니다.
+//   implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
+
+
 // 2. GithubApi 인터페이스를 기반으로 코드를 생성합니다.
 // 2-1
 private val retrofit: Retrofit = Retrofit.Builder().apply {
