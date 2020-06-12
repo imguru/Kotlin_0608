@@ -2,7 +2,9 @@ package com.lge.firstApp.net
 
 import com.lge.firstApp.model.SearchResult
 import com.lge.firstApp.model.User
+import okhttp3.OkHttp
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -41,11 +43,22 @@ interface GithubApi {
 //   implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
 
 
+private val client: OkHttpClient = OkHttpClient.Builder().apply {
+    val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+    addInterceptor(loggingInterceptor)
+
+}.build()
+
+
 // 2. GithubApi 인터페이스를 기반으로 코드를 생성합니다.
 // 2-1
 private val retrofit: Retrofit = Retrofit.Builder().apply {
     baseUrl("https://api.github.com/")
-    client(OkHttpClient())
+    // client(OkHttpClient())
+    client(client)
+
     addConverterFactory(GsonConverterFactory.create())
 
 }.build()
