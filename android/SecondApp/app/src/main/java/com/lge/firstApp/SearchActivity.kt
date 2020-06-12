@@ -119,6 +119,7 @@ class SearchAdapter : RecyclerView.Adapter<ViewHolder>() {
             repoTextView.text = model.fullName
             descTextView.text = model.description
             nameTextView.text = model.owner.login
+            companyTextView.text = model.company
 
             GlideApp.with(this)
                 .load(model.owner.avatarUrl)

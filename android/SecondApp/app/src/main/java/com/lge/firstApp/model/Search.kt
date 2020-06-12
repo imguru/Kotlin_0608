@@ -9,7 +9,7 @@ data class Repo(
     val private: Boolean,
     val owner: Owner,
     val description: String,
-    val company: String?
+    var company: String?
 ) {
     data class Owner(
         val login: String,
