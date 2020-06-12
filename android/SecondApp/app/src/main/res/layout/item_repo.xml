@@ -63,12 +63,24 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/avatarImageView"
             app:layout_constraintStart_toStartOf="@+id/avatarImageView"
             app:layout_constraintTop_toBottomOf="@+id/avatarImageView"
-            app:layout_constraintVertical_bias="0.0"
             tools:text="hussien89aa" />
+
+        <TextView
+            android:id="@+id/companyTextView"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/avatarImageView"
+            app:layout_constraintStart_toStartOf="@+id/nameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+            app:layout_constraintVertical_bias="0.1"
+            tools:text="Freelance Kotlin trainer" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
