@@ -2,11 +2,6 @@ package com.lge.firstApp.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Owner(
-    val login: String,
-    val type: String,
-    @field:SerializedName("avatar_url") val avatarUrl: String
-)
 
 data class Repo(
     val name: String,
@@ -14,7 +9,13 @@ data class Repo(
     val private: Boolean,
     val owner: Owner,
     val description: String
-)
+) {
+    data class Owner(
+        val login: String,
+        val type: String,
+        @field:SerializedName("avatar_url") val avatarUrl: String
+    )
+}
 
 data class SearchResult(
     @field:SerializedName("total_count") val totalCount: Int,
