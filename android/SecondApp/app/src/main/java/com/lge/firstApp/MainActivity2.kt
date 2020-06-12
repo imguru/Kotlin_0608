@@ -1,6 +1,8 @@
 package com.lge.firstApp
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.lge.firstApp.model.User
 import com.lge.firstApp.net.githubApi
@@ -19,11 +21,18 @@ class MainActivity2 : AppCompatActivity() {
             val call = githubApi.getUser("JakeWharton")
             call.enqueue(object : Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
+                    Toast.makeText(
+                        this@MainActivity2,
+                        "Err - ${t.localizedMessage}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
+                    Log.e("XXX", "code - ${response.code()}")
                     if (!response.isSuccessful)
                         return
+
 
                     val user = response.body() ?: return
                     nameTextView.text = user.name
@@ -34,7 +43,6 @@ class MainActivity2 : AppCompatActivity() {
 
                 }
             })
-
         }
     }
 }

@@ -28,8 +28,7 @@ interface GithubApi {
 // 2. GithubApi 인터페이스를 기반으로 코드를 생성합니다.
 // 2-1
 private val retrofit: Retrofit = Retrofit.Builder().apply {
-
-    baseUrl("https://api.github.com/api/")
+    baseUrl("https://api.github.com/")
     client(OkHttpClient())
     addConverterFactory(GsonConverterFactory.create())
 
