@@ -30,8 +30,8 @@ interface GithubApi {
     @GET("search/repositories")
     fun searchRepo(
         @Query("q") q: String,
-        @Query("page") page: Int,
-        @Query("per_page") perPage: Int
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 5
     ): Call<SearchResult>
 
 }
