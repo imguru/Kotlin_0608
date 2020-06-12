@@ -1,10 +1,8 @@
 package com.lge.firstApp
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -53,13 +51,17 @@ class MainActivity3 : AppCompatActivity() {
 
     // Back Button 처리 로직
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
+        Log.e("XXX", "onOptionsItemSelected - Activity")
+//        val f = supportFragmentManager.findFragmentByTag("second") as? SecondFragment3
+//        Log.e("XXX", "$f")
 
+
+//        when (item.itemId) {
+//            android.R.id.home -> {
+//                onBackPressed()
+//                return true
+//            }
+//        }
 
         return super.onOptionsItemSelected(item)
     }
@@ -82,7 +84,7 @@ class FirstFragment3 : Fragment() {
         button.text = "First"
         button.setOnClickListener {
             parentFragmentManager.commit {
-                add(R.id.mainFrame, SecondFragment3())
+                add(R.id.mainFrame, SecondFragment3(), "second")
                 addToBackStack("first")
                 // Back Button을 통해 이전의 fragment로 돌아갈 수 있도록 해준다.
             }
@@ -164,6 +166,7 @@ class ForthFragment3 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         button.text = "Forth"
         button.setOnClickListener {
@@ -172,6 +175,16 @@ class ForthFragment3 : Fragment() {
             parentFragmentManager.popBackStack("first", POP_BACK_STACK_INCLUSIVE)
 
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // Log.e("XXX", "onCreateOptionsMenu - Fragment")
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.e("XXX", "onOptionsItemSelected - Fragment")
+        return super.onOptionsItemSelected(item)
     }
 }
 
