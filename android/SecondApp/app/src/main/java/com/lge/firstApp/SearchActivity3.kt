@@ -2,22 +2,10 @@ package com.lge.firstApp
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
-import com.lge.firstApp.model.Repo
-import com.lge.firstApp.model.SearchResult
-import com.lge.firstApp.model.User
 import com.lge.firstApp.net.githubApi
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.item_repo.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class SearchActivity3 : AppCompatActivity() {
@@ -32,7 +20,19 @@ class SearchActivity3 : AppCompatActivity() {
 
         searchButton.setOnClickListener {
 
-        }
+            val observable = githubApi.rxGetUser("JakeWharton")
+            // observable.subscribe() // RxJava
 
+            observable.subscribeBy(onNext = { user ->
+                Log.e("XXX", "onNext - $user")
+
+            }, onError = {
+                Log.e("XXX", "onError - $it")
+            }, onComplete = {
+                Log.e("XXX", "onComplete")
+            })
+
+
+        }
     }
 }

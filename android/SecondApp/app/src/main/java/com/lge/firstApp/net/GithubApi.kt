@@ -3,11 +3,13 @@ package com.lge.firstApp.net
 import com.lge.firstApp.model.SearchResult
 import com.lge.firstApp.model.User
 import io.reactivex.rxjava3.core.Observable
+
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
+
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -75,7 +77,7 @@ private val retrofit: Retrofit = Retrofit.Builder().apply {
     addConverterFactory(GsonConverterFactory.create())
 
     // Rx : Call<T> -> Observable<T>
-    addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+    addCallAdapterFactory(RxJava3CallAdapterFactory.create())
 
 }.build()
 
