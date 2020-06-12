@@ -4,12 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.lge.firstApp.model.Repo
+import com.lge.firstApp.model.SearchResult
+import com.lge.firstApp.net.githubApi
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.item_repo.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,44 +26,39 @@ class SearchActivity : AppCompatActivity() {
         searchRecyclerView.adapter = adapter
 
         searchButton.setOnClickListener {
+            val query = queryEditText.text.toString().trim()
+            if (query.isBlank()) {
+                return@setOnClickListener
+            }
 
-            adapter.items = listOf(
-                Repo(
-                    name = "JetBrains/Kotlin",
-                    description = "xxxxxxxxxxxx",
-                    fullName = "JetBrains/Kotlin",
-                    private = true,
-                    owner = Repo.Owner(
-                        login = "google",
-                        avatarUrl = "https://pbs.twimg.com/profile_banners/113419064/1398369112/1080x360",
-                        type = "User"
-                    )
-                ),
-                Repo(
-                    name = "JetBrains/Kotlin",
-                    description = "xxxxxxxxxxxx",
-                    fullName = "JetBrains/Kotlin",
-                    private = true,
-                    owner = Repo.Owner(
-                        login = "google",
-                        avatarUrl = "https://pbs.twimg.com/profile_banners/113419064/1398369112/1080x360",
-                        type = "User"
-                    )
-                ),
-                Repo(
-                    name = "JetBrains/Kotlin",
-                    description = "xxxxxxxxxxxx",
-                    fullName = "JetBrains/Kotlin",
-                    private = true,
-                    owner = Repo.Owner(
-                        login = "google",
-                        avatarUrl = "https://pbs.twimg.com/profile_banners/113419064/1398369112/1080x360",
-                        type = "User"
-                    )
-                )
-            )
+            githubApi.searchRepo(q = query, perPage = 30).enqueue(object : Callback<SearchResult> {
+                override fun onFailure(call: Call<SearchResult>, t: Throwable) {
+                    Toast.makeText(
+                        this@SearchActivity,
+                        "Error - ${t.localizedMessage}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-            adapter.notifyDataSetChanged() // !!
+                override fun onResponse(
+                    call: Call<SearchResult>,
+                    response: Response<SearchResult>
+                ) {
+                    if (!response.isSuccessful)
+                        return
+
+                    val result = response.body() ?: return
+                    adapter.items = result.items
+                }
+
+            })
+
+
+            // githubApi.searchRepo()
+
+
+            // adapter.items에 내용이 변경되면 자동으로 호출하고 싶다.
+            // adapter.notifyDataSetChanged()
 
         }
 
@@ -86,6 +87,10 @@ class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
 class SearchAdapter : RecyclerView.Adapter<ViewHolder>() {
     var items: List<Repo> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun getItemCount(): Int = items.count()
 
