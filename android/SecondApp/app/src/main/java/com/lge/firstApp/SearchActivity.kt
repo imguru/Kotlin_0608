@@ -46,13 +46,15 @@ class SearchAdapter : RecyclerView.Adapter<ViewHolder>() {
     }
 
     // 재사용 가능한 View가 없을 경우, 생성하는 함수
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+        ViewHolder(parent)
 
 
     // 재사용하는 View에 대해서 내용을 변경하는 함수
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = items[position]
 
+        /*
         holder.itemView.repoTextView.text = model.fullName
         holder.itemView.descTextView.text = model.description
         holder.itemView.nameTextView.text = model.owner.login
@@ -61,13 +63,20 @@ class SearchAdapter : RecyclerView.Adapter<ViewHolder>() {
             .load(model.owner.avatarUrl)
             .avatar()
             .into(holder.itemView.avatarImageView)
+        */
+
+        with(holder.itemView) {
+            repoTextView.text = model.fullName
+            descTextView.text = model.description
+            nameTextView.text = model.owner.login
+
+            GlideApp.with(this)
+                .load(model.owner.avatarUrl)
+                .avatar()
+                .into(avatarImageView)
+        }
     }
 }
-
-
-
-
-
 
 
 /*
